@@ -1,0 +1,68 @@
+<?php
+
+namespace Disko\DiskoBundle\Entity;
+
+
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+use Doctrine\ORM\Mapping as ORM; // doctrine orm annotations
+
+/**
+ * Movie
+ *
+ * @ORM\Table(name="rate")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * @ORM\Entity(repositoryClass="Disko\DiskoBundle\Repository\RateRepository")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class Rate
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Disko\DiskoBundle\Entity\Movie", inversedBy="movies", cascade={"persist"})
+     * @ORM\JoinColumn(name="movie_id", referencedColumnName="id")
+     */
+    private $movie;
+
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="mark", type="integer")
+     */
+    private $mark;
+
+
+
+
+
+}

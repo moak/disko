@@ -1,0 +1,7 @@
+services:
+    disko_user.registration.form.type:
+        class: Disko\UserBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type, alias: disko_user_registration }
+
+

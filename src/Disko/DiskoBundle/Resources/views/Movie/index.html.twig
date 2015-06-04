@@ -1,0 +1,160 @@
+{% extends "::base.html.twig" %}
+{% set active = "movie" %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+               Tous les films ({{ movies|length }})
+                {% if app.user %}
+                    <a class="btn btn-normal pull-right btn-success" href="{{ path('movie_add') }}">Ajouter un film</a>
+                {% endif %}
+            </h1>
+        </div>
+    </div>
+
+    <table class="table table-responsive table-striped all_movies">
+        <thead>
+            <tr>
+                <th>Ajouté par</th>
+                <th>Titre</th>
+                <th>Année</th>
+                <th>Producteur</th>
+                <th>Photo</th>
+                <!-- Affiche les attributs que si loogué -->
+                {% if  is_granted('ROLE_USER') %}
+                    <th>Crée le </th>
+                    <th>Modifié le</th>
+                {% endif %}
+                <th>Note moyenne</th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies %}
+                <tr>
+                    <td>{{ movie.user.username}} </td>
+                    <td>{{ movie.title}} </td>
+                    <td>{{ movie.year}} </td>
+                    <td>{{ movie.director}}</td>
+                    <td>
+                        {%  if movie.image == null %}
+                           <img height="40" width="40" src="http://www.wpclipart.com/smiley/smiley_outlines/smiley_outline_set/smiley_outline_sad.png">
+                        {% else %}
+                            <a rel="gallery-1" href="{{ asset(movie.image.getWebPath()) }}" class="swipebox img-rounded img-responsive">
+                            <img height="50" width="50" src="{{ asset(movie.image.getWebPath()) }}" alt="image">
+                        </a>
+                        {% endif %}
+                    </td>
+                    <!-- Affiche les attributs que si loogué -->
+                    {% if  is_granted('ROLE_USER') %}
+                        <td>{{ movie.user.getCreatedAt()|date("m/d/Y") }}</td>
+                        <td>{{ movie.user.getUpdatedAt()|date("m/d/Y") }}</td>
+                    {% endif %}
+
+                    <td>
+                        {%  if  movie.getVotes() is not empty %}
+
+                            {%  set votes = movie.getVotes() %}
+                            {% set totalVotes = 0 %}
+                            <!-- Calcul le total des votes pour le film courant -->
+                            {% for vote in votes %}
+                                {% set totalVotes = totalVotes + vote.mark %}
+                            {% endfor %}
+                            <!-- Affiche le total des votes pour le film courant -->
+                            {{  '%.2f'|format(totalVotes / votes|length) }} ({{ votes|length }})
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+
+                    <td><a href="{{ path("movie" , { id : movie.id}) }}">Vote</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if app.user %}
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Mes films ({{ my_movies|length }})
+                </h1>
+            </div>
+        </div>
+
+        {%  if my_movies | length > 0 %}
+        <table class="table table-responsive table-striped">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Année</th>
+                <th>Producteur</th>
+                <th>Photo</th>
+                <th>Note moyenne</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for movie in my_movies %}
+                    <tr>
+                        <td>{{ movie.title}} </td>
+                        <td>{{ movie.year}} </td>
+                        <td>{{ movie.director}}</td>
+                        <td>
+                            {%  if movie.image == null %}
+                                <img height="40" width="40" src="http://www.wpclipart.com/smiley/smiley_outlines/smiley_outline_set/smiley_outline_sad.png">
+                            {% else %}
+                                <a rel="gallery-1" href="{{ asset(movie.image.getWebPath()) }}" class="swipebox img-rounded img-responsive">
+                                    <img height="50" width="50" src="{{ asset(movie.image.getWebPath()) }}" alt="image">
+                                </a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {%  if  movie.getVotes() is not empty %}
+
+                                {%  set votes = movie.getVotes() %}
+                                {% set totalVotes = 0 %}
+                                <!-- Calcul le total des votes pour le film courant -->
+                                {% for vote in votes %}
+                                    {% set totalVotes = totalVotes + vote.mark %}
+                                {% endfor %}
+                                <!-- Affiche le total des votes pour le film courant -->
+                                {{  '%.2f'|format(totalVotes / votes|length) }} ({{ votes|length }})
+                            {% else %}
+                                  -
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a class="btn btn-normal btn-primary" href="{{ path('movie_edit', {'id': movie.id } ) }}">Editer</a>
+                            <a class="btn btn-normal btn-danger" href="{{ path('movie_delete', {'id': movie.id } ) }}">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <!-- 0 film trouvé -->
+                <p>Vous n'avez encore aucun film, ajoutez votre premier film <a href="{{ path("movie_add") }}">ici</a> !</p>
+            {% endif %}
+            </tbody>
+        </table>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+
+        $(document).ready(function() {
+            $( '.swipebox' ).swipebox();
+        } );
+
+        $(document).ready(function() {
+            $('.all_movies').DataTable();
+        });
+    </script>
+{% endblock %}
+

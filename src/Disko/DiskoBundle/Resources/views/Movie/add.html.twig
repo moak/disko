@@ -1,0 +1,74 @@
+{% extends "::base.html.twig" %}
+{% set active = "movie" %}
+
+
+
+{% block body %}
+
+
+    <div class="container white-bg rounded-corners">
+        <h2>Ajouter un film</h2>
+
+        <div class="well">
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            {{ form_errors(form) }}
+
+            <div class="form-group">
+                {{ form_label(form.title, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.title) }}
+
+                <div class="col-sm-4">
+                    {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.year, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.year) }}
+
+                <div class="col-sm-4">
+                    {{ form_widget(form.year, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.director, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.director) }}
+
+                <div class="col-sm-4">
+                    {{ form_widget(form.director, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                {{ form_label(form.image, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.image) }}
+
+                <div class="col-sm-4">
+                    {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+
+                <div class="col-sm-3"></div>
+                <div class="col-sm-4">
+                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary btn-block'}}) }}
+                </div>
+            </div>
+
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+
+        {# form_start(form, {'action': path('coc_homepage'), 'method': 'GET'}) }} #}
+        {{ form(form)}}
+    </div>
+
+{% endblock %}
+
+
+

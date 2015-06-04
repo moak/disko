@@ -1,0 +1,93 @@
+<?php
+
+namespace Disko\DiskoBundle\Entity;
+
+
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+use Doctrine\ORM\Mapping as ORM; // doctrine orm annotations
+
+/**
+ * Movie
+ *
+ * @ORM\Table(name="movie")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * @ORM\Entity(repositoryClass="Disko\DiskoBundle\Repository\MovieRepository")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class Movie
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Disko\DiskoBundle\Entity\Vote", mappedBy="movie")
+     **/
+    private $votes ;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Disko\DiskoBundle\Entity\Image")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     **/
+    private $image;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Disko\UserBundle\Entity\User", inversedBy="movies")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     */
+    private $user;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="year", type="integer")
+     */
+    private $year;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="director", type="string", length=255)
+     */
+    private $director;
+
+
+
+
+
+}

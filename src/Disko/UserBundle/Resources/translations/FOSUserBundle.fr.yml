@@ -1,0 +1,8 @@
+fos:
+    register: Inscription
+    login: Login
+    stay_connected: Se rappeler de moi
+    forgot_password: Mot de passe Disko oublié?
+    change_password: Cliquez ici
+    you_forgot_password: Vous avez oublié votre mot de pass Disko
+    description: Pas de panique, Disko a tout prévu ! Inserez votre email sur la partie droite de la page, un email vous sera envoyé pour réinitialiser votre mot de passe.

@@ -1,0 +1,4 @@
+fos:
+    register: Register
+    login: Login
+    stay_connected: Remember me

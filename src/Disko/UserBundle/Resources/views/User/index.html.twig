@@ -1,0 +1,75 @@
+{% extends "::base.html.twig" %}
+{% set active = "user" %}
+
+{% block body %}
+
+    <!-- Page Content -->
+    <div class="row">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Liste des utilisateurs ({{ users|length }})
+                </h1>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+
+        <table id="all_users" class="table table-hover">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Nombre de films</th>
+                <th>Films</th>
+                <th>Inscris le</th>
+                <th>Dernière activité</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+
+            {% if users|length != 0 %}
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.getMovies() |length }}</td>
+                        <td>
+                            {% set movies = user.getMovies() %}
+                            <ul>
+                                {% for movie in movies %}
+                                   <li>
+                                       {{ movie.title }}
+                                   </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>{{ user.getCreatedAt()|date("m/d/Y") }}</td>
+                        <td>{{ user.getUpdatedAt()|date("m/d/Y") }}</td>
+
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td>Aucun utilisateur trouvé</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        <hr>
+
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('#all_users').DataTable();
+        } );
+    </script>
+{% endblock %}

@@ -1,0 +1,32 @@
+homepage:
+    path:     /
+    defaults: { _controller: DiskoBundle:Default:index }
+
+movies:
+    path:     /movies
+    defaults: { _controller: DiskoBundle:Movie:index }
+
+movie:
+    path:     /movie/{id}
+    defaults: { _controller: DiskoBundle:Movie:movie }
+
+movie_add:
+    path:     /movie_add
+    defaults: { _controller: DiskoBundle:Movie:add }
+
+
+movie_edit:
+    path:     /movie_edit/{id}
+    defaults: { _controller: DiskoBundle:Movie:edit }
+
+movie_delete:
+    path:     /movie_delete/{id}
+    defaults: { _controller: DiskoBundle:Movie:delete }
+
+users:
+    path:     /users
+    defaults: { _controller: UserBundle:User:index }
+
+user:
+    path:     /user/{id}/
+    defaults: { _controller: UserBundle:User:user }

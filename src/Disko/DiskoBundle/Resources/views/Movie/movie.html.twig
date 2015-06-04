@@ -1,0 +1,70 @@
+{% extends "::base.html.twig" %}
+{% set active = "movie" %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+               {{ movie.title }} <small>(Ajouté par {{ movie.user }})</small>
+                {% if app.user %}
+                    <a class="btn btn-normal pull-right btn-success" href="{{ path('movie_add') }}">Ajouter un film</a>
+                {% endif %}
+            </h1>
+
+        </div>
+    </div>
+
+
+
+    <div class="container white-bg rounded-corners">
+        <h2>Voter pour ce film</h2>
+
+        <div class="well">
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            {{ form_errors(form) }}
+
+            <div class="form-group">
+                {{ form_label(form.mark, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.mark) }}
+
+                <div class="col-sm-4">
+                    {{ form_widget(form.mark, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-3"></div>
+                <div class="col-sm-4">
+                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary btn-block'}}) }}
+                </div>
+            </div>
+
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+
+        {# form_start(form, {'action': path('coc_homepage'), 'method': 'GET'}) }} #}
+        {{ form(form)}}
+    </div>
+
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+
+        $(document).ready(function() {
+            $( '.swipebox' ).swipebox();
+        } );
+
+        $(document).ready(function() {
+            $('.all_movies').DataTable();
+        });
+    </script>
+{% endblock %}
+

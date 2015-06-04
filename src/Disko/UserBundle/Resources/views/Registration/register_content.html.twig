@@ -1,0 +1,127 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="container">
+
+    <br><br>
+    <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-primary" >
+            <div class="panel-heading">
+                <div class="panel-title">
+                    Inscription
+                </div>
+
+            </div>
+
+            <div style="padding-top:50px" class="panel-body" >
+
+                <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal" role="form">
+
+                    {{ form_row(form._token) }}
+
+                    <div class="form-group{% if form.username.vars.errors[0].message is defined %} has-error{% endif %}">
+                        {{ form_label(form.username, null, {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+                        <div class="col-sm-6">
+                            {{ form_widget(form.username, {'attr': {'class': 'form-control', 'placeholder' : 'New username'}}) }}
+                            {% if form.username.vars.errors[0].message is defined %}
+                                <span class="help-block">{{ form.username.vars.errors[0].message }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-group{% if form.plainPassword.first.vars.errors[0].message is defined %} has-error{% endif %}">
+                        {{ form_label(form.plainPassword.first, null, {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+                        <div class="col-sm-6">
+                            {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control', 'placeholder' : 'Password'}}) }}
+                            {% if form.plainPassword.first.vars.errors[0].message is defined %}
+                                <span class="help-block">{{ form.plainPassword.first.vars.errors[0].message }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group{% if form.plainPassword.second.vars.errors[0].message is defined %} has-error{% endif %}">
+                        {{ form_label(form.plainPassword.second, null, {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+                        <div class="col-sm-6">
+                            {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control', 'placeholder' : 'Repeat the password'}}) }}
+                            {% if form.plainPassword.second.vars.errors[0].message is defined %}
+                                <span class="help-block">{{ form.plainPassword.second.vars.errors[0].message }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-group{% if form.email.vars.errors[0].message is defined %} has-error{% endif %}">
+                        {{ form_label(form.email, null, {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+                        <div class="col-sm-6">
+                            {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder' : 'Email address'}}) }}
+                            {% if form.email.vars.errors[0].message is defined %}
+                                <span class="help-block">{{ form.email.vars.errors[0].message }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-group{% if form.gender.vars.errors[0].messgender is defined %} has-error{% endif %}">
+                        {{ form_label(form.gender, null, {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+                        <div class="col-sm-6">
+                            {{ form_widget(form.gender, {'attr': {'class': 'form-control'}}) }}
+                            {% if form.gender.vars.errors[0].messgender is defined %}
+                                <span class="help-block">{{ form.age.vars.errors[0].message }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+
+                    <div class="form-group{% if form.image.vars.errors[0].message is defined %} has-error{% endif %}">
+                        {{ form_label(form.image, null, {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+                        <div class="col-sm-6">
+                            {{ form_widget(form.image, {'attr': {'class': 'form-control', 'placeholder' : 'Email address'}}) }}
+                            {% if form.image.vars.errors[0].message is defined %}
+                                <span class="help-block">{{ form.image.vars.errors[0].message }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-group{% if form.fn.vars.errors[0].message is defined %} has-error{% endif %}">
+                        {{ form_label(form.fn, null, {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+                        <div class="col-sm-6">
+                            {{ form_widget(form.fn, {'attr': {'class': 'form-control', 'placeholder' : 'Prénom'}}) }}
+                            {% if form.fn.vars.errors[0].message is defined %}
+                                <span class="help-block">{{ form.fn.vars.errors[0].message }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-group{% if form.ln.vars.errors[0].message is defined %} has-error{% endif %}">
+                        {{ form_label(form.ln, null, {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+                        <div class="col-sm-6">
+                            {{ form_widget(form.ln, {'attr': {'class': 'form-control', 'placeholder' : 'Nom'}}) }}
+                            {% if form.ln.vars.errors[0].message is defined %}
+                                <span class="help-block">{{ form.ln.vars.errors[0].message }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-4 col-md-offset-4 supercell-font">
+                            {{ form_widget(form.save, {'attr': {'class': 'btn btn-block btn-success'}}) }}
+                        </div>
+                    </div>
+
+
+                    {{ form_rest(form) }}
+                    {% for flashMessage in app.session.flashbag.get('error') %}
+                        <div class="flash-notice">
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+
+
+                </form>
+
+
+
+        </div>
+    </div>
+
+</div><!-- End row -->
+
+</div>

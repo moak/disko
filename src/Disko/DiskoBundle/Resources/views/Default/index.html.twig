@@ -1,0 +1,46 @@
+{% extends "::base.html.twig" %}
+{% set active = "home" %}
+
+{% block body %}
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="jumbotron">
+            <h1>Disko vous présente ses films. :) </h1>
+
+        </div>
+
+    <div class="row">
+
+        {% for movie in movies %}
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <h3 class="text-center">
+                        <p>{{ movie.title|slice(0,20) }} - <small>{{ movie.year }}</small></p>
+                        <small><i>(Posté par {{ movie.user }})</i></small>
+                    </h3>
+
+                    {% if movie.image is not null %}
+                        <a rel="gallery-1" href="{{ asset(movie.image.getWebPath()) }}" class="swipebox img-rounded img-responsive">
+                            <img  src="{{ asset(movie.image.getWebPath()) }}" alt="image">
+                        </a>
+                    {% else %}
+                        <img src="{{ asset('images/no_available.jpg') }}" alt="image_not_available" />
+                    {% endif %}
+                    <a href="{{ path("movies") }}" class="btn btn-primary btn-block">Tous les films</a> <!-- BS3 -->
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $( '.swipebox' ).swipebox();
+        } );
+    </script>
+{% endblock %}
+
+
