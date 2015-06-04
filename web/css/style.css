@@ -2,3 +2,13 @@ body > .container
 {
     padding-top: 70px;
 }
+
+
+.imageClip{
+    width:200px;
+    height:200px;
+    overflow:hidden;
+    display:block;
+    margin:auto;
+}
+

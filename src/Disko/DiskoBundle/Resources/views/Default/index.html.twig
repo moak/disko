@@ -12,23 +12,23 @@
 
         {% for movie in movies %}
             <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
+
                     <h3 class="text-center">
                         <p>{{ movie.title|slice(0,20) }} - <small>{{ movie.year }}</small></p>
                         <small><i>(Posté par {{ movie.user }})</i></small>
                     </h3>
 
                     {% if movie.image is not null %}
-                        <a rel="gallery-1" href="{{ asset(movie.image.getWebPath()) }}" class="swipebox img-rounded img-responsive">
-                            <img  src="{{ asset(movie.image.getWebPath()) }}" alt="image">
+                        <a rel="gallery-1" href="{{ asset(movie.image.getWebPath()) }}" class="swipebox img-responsive imageClip ">
+                            <img  class="imageClip " src="{{ asset(movie.image.getWebPath()) }}" alt="image">
                         </a>
                     {% else %}
                         <img src="{{ asset('images/no_available.jpg') }}" alt="image_not_available" />
                     {% endif %}
-                    <a href="{{ path("movies") }}" class="btn btn-primary btn-block">Tous les films</a> <!-- BS3 -->
-
-                </div>
+                    <a href="{{ path("movies") }}" class="btn btn-block ">Tous les films</a> <!-- BS3 -->
+                <hr>
             </div>
+
         {% endfor %}
     </div>
 
