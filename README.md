@@ -1,4 +1,11 @@
 disko
 =====
 
-A Symfony project created on May 18, 2015, 10:51 pm.
+Interface permettant:
+=====
+ - Inscription / Login / Mot de passe perdu
+ - Ajout de films
+ - Note de films
+ - Differents modules pour rechercher / trier / afficher les films / utilisateurs
+=====
+Realisé pour Disko
