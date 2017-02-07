@@ -1,4 +1,4 @@
-disko
+Disko - Symfony
 =====
 
 Interface permettant:
